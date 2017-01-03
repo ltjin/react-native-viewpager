@@ -14,6 +14,7 @@ var {
 var deviceWidth = Dimensions.get('window').width;
 var DOT_SIZE = 6;
 var DOT_SAPCE = 4;
+var DOT_OFFSET = 2;
 
 var styles = StyleSheet.create({
   tab: {
@@ -27,22 +28,26 @@ var styles = StyleSheet.create({
   },
 
   dot: {
-    width: DOT_SIZE,
+    width: DOT_SIZE * DOT_OFFSET,
     height: DOT_SIZE,
-    borderRadius: DOT_SIZE / 2,
-    backgroundColor: '#E0E1E2',
+    backgroundColor: 'rgba(255,255,255,0.3)',
     marginLeft: DOT_SAPCE,
     marginRight: DOT_SAPCE,
+    transform:[
+          {skewX: '-60deg'}
+      ]
   },
 
   curDot: {
     position: 'absolute',
     width: DOT_SIZE,
     height: DOT_SIZE,
-    borderRadius: DOT_SIZE / 2,
     backgroundColor: '#80ACD0',
     margin: DOT_SAPCE,
     bottom: 0,
+    transform:[
+          {skewX: '-60deg'}
+      ]
   },
 });
 
