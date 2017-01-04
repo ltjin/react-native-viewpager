@@ -40,12 +40,12 @@ var styles = StyleSheet.create({
 
   curDot: {
     position: 'absolute',
-    width: DOT_SIZE,
+    width: DOT_SIZE * DOT_OFFSET,
     height: DOT_SIZE,
-    backgroundColor: '#80ACD0',
+    backgroundColor: 'rgba(255,291,24, 0.3)',
     margin: DOT_SAPCE,
     bottom: 0,
-    transform:[
+      transform:[
           {skewX: '-60deg'}
       ]
   },
