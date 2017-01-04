@@ -33,7 +33,7 @@ var styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.3)',
     marginLeft: DOT_SAPCE,
     marginRight: DOT_SAPCE,
-    transform:[
+      transform:[
           {skewX: '-60deg'}
       ]
   },
@@ -75,7 +75,7 @@ var DefaultViewPageIndicator = React.createClass({
 
   render() {
     var pageCount = this.props.pageCount;
-    var itemWidth = DOT_SIZE + (DOT_SAPCE * 2);
+    var itemWidth = DOT_SIZE * DOT_OFFSET + (DOT_SAPCE * 2);
     var offset = (this.state.viewWidth - itemWidth * pageCount) / 2 + itemWidth * this.props.activePage;
 
     //var left = offset;
