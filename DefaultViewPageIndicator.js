@@ -1,23 +1,21 @@
 'use strict';
-
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+import React, { Component } from 'react';
+import {
   Dimensions,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   Animated,
-} = ReactNative;
-var PropTypes = require('prop-types');
+} from 'react-native';
+import PropTypes from 'prop-types';
 
-var deviceWidth = Dimensions.get('window').width;
-var DOT_SIZE = 6;
-var DOT_SAPCE = 4;
-var DOT_OFFSET = 2;
+const deviceWidth = Dimensions.get('window').width;
+const DOT_SIZE = 6;
+const DOT_SAPCE = 4;
+const DOT_OFFSET = 2;
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   tab: {
     alignItems: 'center',
   },
@@ -34,9 +32,9 @@ var styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.3)',
     marginLeft: DOT_SAPCE,
     marginRight: DOT_SAPCE,
-      transform:[
-          {skewX: '-60deg'}
-      ]
+    transform: [
+      { skewX: '-60deg' }
+    ]
   },
 
   curDot: {
@@ -46,24 +44,24 @@ var styles = StyleSheet.create({
     backgroundColor: 'rgba(255,291,24, 0.3)',
     margin: DOT_SAPCE,
     bottom: 0,
-      transform:[
-          {skewX: '-60deg'}
-      ]
+    transform: [
+      { skewX: '-60deg' }
+    ]
   },
 });
-
-var DefaultViewPageIndicator = React.createClass({
-  propTypes: {
+export default class DefaultViewPageIndicator extends Component {
+  static propTypes = {
     goToPage: PropTypes.func,
     activePage: PropTypes.number,
     pageCount: PropTypes.number
-  },
+  }
 
-  getInitialState() {
-    return {
-      viewWidth: 0,
-    };
-  },
+  constructor(props){
+    super(props);
+    this.state = {
+      viewWidth: 0
+    }
+  }
 
   renderIndicator(page) {
     //var isTabActive = this.props.activePage === page;
@@ -72,20 +70,19 @@ var DefaultViewPageIndicator = React.createClass({
         <View style={styles.dot} />
       </TouchableOpacity>
     );
-  },
+  }
 
   render() {
-    var pageCount = this.props.pageCount;
-    var itemWidth = DOT_SIZE * DOT_OFFSET + (DOT_SAPCE * 2);
-    var offset = (this.state.viewWidth - itemWidth * pageCount) / 2 + itemWidth * this.props.activePage;
+    const { pageCount } = this.props;
+    const itemWidth = DOT_SIZE * DOT_OFFSET + (DOT_SAPCE * 2);
 
     //var left = offset;
-    var offsetX = itemWidth * (this.props.activePage - this.props.scrollOffset);
-    var left = this.props.scrollValue.interpolate({
+    const offsetX = itemWidth * (this.props.activePage - this.props.scrollOffset);
+    const left = this.props.scrollValue.interpolate({
       inputRange: [0, 1], outputRange: [offsetX, offsetX + itemWidth]
     })
 
-    var indicators = [];
+    let indicators = [];
     for (var i = 0; i < pageCount; i++) {
       indicators.push(this.renderIndicator(i))
     }
@@ -93,19 +90,17 @@ var DefaultViewPageIndicator = React.createClass({
     return (
       <View style={styles.tabs}
         onLayout={(event) => {
-            var viewWidth = event.nativeEvent.layout.width;
-            if (!viewWidth || this.state.viewWidth === viewWidth) {
-              return;
-            }
-            this.setState({
-              viewWidth: viewWidth,
-            });
-          }}>
+          var viewWidth = event.nativeEvent.layout.width;
+          if (!viewWidth || this.state.viewWidth === viewWidth) {
+            return;
+          }
+          this.setState({
+            viewWidth: viewWidth,
+          });
+        }}>
         {indicators}
-        <Animated.View style={[styles.curDot, {left}]} />
+        <Animated.View style={[styles.curDot, { left }]} />
       </View>
     );
-  },
-});
-
-module.exports = DefaultViewPageIndicator;
+  }
+}
